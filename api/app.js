@@ -12,6 +12,7 @@ const roles = require('./routes/roles');
 const users = require('./routes/users');
 const projects = require('./routes/projects');
 const projectTypes = require('./routes/project_types');
+const images = require('./routes/images');
 
 var app = express();
 
@@ -34,6 +35,7 @@ app.use('/api/roles', roles);
 app.use('/api/users', users);
 app.use('/api/projects', projects);
 app.use('/api/projecttypes', projectTypes);
+app.use('/api/images', images);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

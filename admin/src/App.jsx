@@ -13,6 +13,7 @@ import DashboardPage from './components/dashboard/DashboardPage';
 import UserPage from './components/user/UserPage';
 import RolePage from './components/role/RolePage';
 import ProjectPage from './components/project/ProjectPage';
+import ImagePage from './components/image/ImagePage';
 import LoginForm from './components/login/LoginForm';
 
 export default () => {
@@ -25,6 +26,7 @@ export default () => {
         <Route exact path="/users" component={UserPage} />
         <Route exact path="/roles" component={RolePage} />
         <Route exact path="/projects" component={ProjectPage} />
+        <Route exact path="/images" component={ImagePage} />
       </Workspace>
     </Router>
   );

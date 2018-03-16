@@ -126,6 +126,16 @@ class Workspace extends Component {
                   </Menu.Item>
                 </SubMenu>
                 <SubMenu title={<span><Icon type="setting" />Settings</span>}>
+                  <Menu.Item key="images">
+                    <Link
+                      to="/images"
+                      onClick={() => {
+                        this.setState({
+                          selectedKeys: ['images'],
+                        });
+                      }}
+                    ><Icon type="profile" />Images</Link>
+                  </Menu.Item>
                   <Menu.Item key="logout">
                     <Link
                       to="/"
