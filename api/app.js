@@ -10,6 +10,8 @@ const index = require('./routes/index');
 
 const roles = require('./routes/roles');
 const users = require('./routes/users');
+const projects = require('./routes/projects');
+const projectTypes = require('./routes/project_types');
 
 var app = express();
 
@@ -30,6 +32,8 @@ app.use('/', index);
 
 app.use('/api/roles', roles);
 app.use('/api/users', users);
+app.use('/api/projects', projects);
+app.use('/api/projecttypes', projectTypes);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
