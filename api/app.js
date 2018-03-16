@@ -11,6 +11,7 @@ const index = require('./routes/index');
 const roles = require('./routes/roles');
 const users = require('./routes/users');
 const projects = require('./routes/projects');
+const projectProgresses = require('./routes/project_progresses');
 const projectTypes = require('./routes/project_types');
 const images = require('./routes/images');
 
@@ -34,6 +35,7 @@ app.use('/', index);
 app.use('/api/roles', roles);
 app.use('/api/users', users);
 app.use('/api/projects', projects);
+app.use('/api/projectprogresses', projectProgresses);
 app.use('/api/projecttypes', projectTypes);
 app.use('/api/images', images);
 
