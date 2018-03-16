@@ -61,6 +61,48 @@ class Workspace extends Component {
                     ><Icon type="profile" />Project Progress</Link>
                   </Menu.Item>
                 </SubMenu>
+                <SubMenu title={<span><Icon type="profile" />Finance</span>}>
+                  <Menu.Item key="piutangs">
+                    <Link
+                      to="/piutangs"
+                      onClick={() => {
+                        this.setState({
+                          selectedKeys: ['piutangs'],
+                        });
+                      }}
+                    ><Icon type="profile" />Piutang</Link>
+                  </Menu.Item>
+                  <Menu.Item key="projections">
+                    <Link
+                      to="/projections"
+                      onClick={() => {
+                        this.setState({
+                          selectedKeys: ['projections'],
+                        });
+                      }}
+                    ><Icon type="profile" />Proyeksi</Link>
+                  </Menu.Item>
+                  <Menu.Item key="cashFlows">
+                    <Link
+                      to="/cashflows"
+                      onClick={() => {
+                        this.setState({
+                          selectedKeys: ['cashFlows'],
+                        });
+                      }}
+                    ><Icon type="profile" />Cash Flow</Link>
+                  </Menu.Item>
+                  <Menu.Item key="bads">
+                    <Link
+                      to="/bads"
+                      onClick={() => {
+                        this.setState({
+                          selectedKeys: ['bads'],
+                        });
+                      }}
+                    ><Icon type="profile" />Piutang &amp; BAD</Link>
+                  </Menu.Item>
+                </SubMenu>
                 <SubMenu title={<span><Icon type="lock" />Security</span>}>
                   <Menu.Item key="users">
                     <Link
