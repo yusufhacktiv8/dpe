@@ -40,7 +40,7 @@ class Workspace extends Component {
                   ><Icon type="pie-chart" />Dashboard</Link>
                 </Menu.Item>
                 <SubMenu title={<span><Icon type="profile" />Projects</span>}>
-                  <Menu.Item key="projectList">
+                  <Menu.Item key="projects">
                     <Link
                       to="/projects"
                       onClick={() => {
