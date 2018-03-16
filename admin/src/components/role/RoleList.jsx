@@ -10,7 +10,7 @@ const Column = Table.Column;
 class RoleList extends Component {
   state = {
     searchText: '',
-    role: {},
+    selectedRole: {},
     roles: [],
     loading: false,
     count: 0,
@@ -51,22 +51,37 @@ class RoleList extends Component {
 
   saveRole(role) {
     const hide = message.loading('Action in progress..', 0);
-    axios.post(ROLES_URL, role)
-      .then(() => {
-        hide();
-        this.handleCancel();
-        this.getRoles();
-        message.success('Save role success');
-      })
-      .catch((error) => {
-        hide();
-        console.error(error);
-      });
+    const { selectedRole } = this.state;
+    if (selectedRole.id) {
+      axios.put(`${ROLES_URL}/${selectedRole.id}`, role)
+        .then(() => {
+          hide();
+          this.handleCancel();
+          this.getRoles();
+          message.success('Update role success');
+        })
+        .catch((error) => {
+          hide();
+          console.error(error);
+        });
+    } else {
+      axios.post(ROLES_URL, role)
+        .then(() => {
+          hide();
+          this.handleCancel();
+          this.getRoles();
+          message.success('Create role success');
+        })
+        .catch((error) => {
+          hide();
+          console.error(error);
+        });
+    }
   }
 
   deleteRole(role) {
     const hide = message.loading('Action in progress..', 0);
-    axios.delete(`${ROLES_URL}/${role.code}`)
+    axios.delete(`${ROLES_URL}/${role.id}`)
       .then(() => {
         hide();
         this.getRoles();
@@ -80,7 +95,7 @@ class RoleList extends Component {
 
   openEditWindow(record) {
     this.setState({
-      role: record,
+      selectedRole: record,
       roleWindowVisible: true,
     });
   }
@@ -201,7 +216,7 @@ class RoleList extends Component {
           visible={this.state.roleWindowVisible}
           onCreate={() => this.handleCreate()}
           onCancel={() => this.handleCancel()}
-          role={this.state.role}
+          role={this.state.selectedRole}
           ref={roleWindow => (this.roleWindow = roleWindow)}
         />
       </div>
