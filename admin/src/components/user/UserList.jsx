@@ -10,7 +10,7 @@ const Column = Table.Column;
 class UserList extends Component {
   state = {
     searchText: '',
-    user: {},
+    selectedUser: {},
     users: [],
     loading: false,
     count: 0,
@@ -33,7 +33,7 @@ class UserList extends Component {
     } })
       .then((response) => {
         this.setState({
-          users: response.data.users,
+          users: response.data.rows,
           count: response.data.count,
           loading: false,
         });
@@ -51,22 +51,38 @@ class UserList extends Component {
 
   saveUser(user) {
     const hide = message.loading('Action in progress..', 0);
-    axios.post(USERS_URL, user)
-      .then(() => {
-        hide();
-        this.handleCancel();
-        this.getUsers();
-        message.success('Save user success');
-      })
-      .catch((error) => {
-        hide();
-        console.error(error);
-      });
+    const { selectedUser } = this.state;
+    if (selectedUser.id) {
+      axios.put(`${USERS_URL}/${selectedUser.id}`, user)
+        .then(() => {
+          hide();
+          this.handleCancel();
+          this.getUsers();
+          message.success('Update user success');
+        })
+        .catch((error) => {
+          hide();
+          console.error(error);
+        });
+    } else {
+      axios.post(USERS_URL, user)
+        .then(() => {
+          hide();
+          this.handleCancel();
+          this.getUsers();
+          message.success('Create user success');
+        })
+        .catch((error) => {
+          hide();
+          console.error(error);
+        });
+    }
+
   }
 
   deleteUser(user) {
     const hide = message.loading('Action in progress..', 0);
-    axios.delete(`${USERS_URL}/${user.email}`)
+    axios.delete(`${USERS_URL}/${user.id}`)
       .then(() => {
         hide();
         this.getUsers();
@@ -80,7 +96,7 @@ class UserList extends Component {
 
   openEditWindow(record) {
     this.setState({
-      user: record,
+      selectedUser: record,
       userWindowVisible: true,
     });
   }
@@ -123,7 +139,7 @@ class UserList extends Component {
                   searchText: e.target.value,
                 });
               }}
-              placeholder="Email or name"
+              placeholder="Username or name"
             />
           </Col>
           <Col span={16}>
@@ -159,9 +175,9 @@ class UserList extends Component {
               size="small"
             >
               <Column
-                title="Email"
-                dataIndex="email"
-                key="email"
+                title="Username"
+                dataIndex="username"
+                key="username"
               />
               <Column
                 title="Name"
@@ -201,7 +217,7 @@ class UserList extends Component {
           visible={this.state.userWindowVisible}
           onCreate={() => this.handleCreate()}
           onCancel={() => this.handleCancel()}
-          user={this.state.user}
+          user={this.state.selectedUser}
           ref={userWindow => (this.userWindow = userWindow)}
         />
       </div>
