@@ -7,7 +7,7 @@ var bodyParser = require('body-parser');
 const cors = require('cors');
 
 const index = require('./routes/index');
-
+const security = require('./routes/security');
 const roles = require('./routes/roles');
 const users = require('./routes/users');
 const projects = require('./routes/projects');
@@ -32,6 +32,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
 
+app.use('/api/security', security);
 app.use('/api/roles', roles);
 app.use('/api/users', users);
 app.use('/api/projects', projects);
