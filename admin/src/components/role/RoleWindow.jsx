@@ -19,7 +19,7 @@ const RoleWindow = ({ visible, onCancel, onCreate, form, role }) => {
           {getFieldDecorator('code', {
             initialValue: role.code,
             rules: [
-              { required: true, message: 'Please input the code' },
+              { required: true, message: 'Please input code' },
             ],
           })(
             <Input />,
@@ -29,7 +29,7 @@ const RoleWindow = ({ visible, onCancel, onCreate, form, role }) => {
           {getFieldDecorator('name', {
             initialValue: role.name,
             rules: [
-              { required: true, message: 'Please input the name' },
+              { required: true, message: 'Please input name' },
             ],
           })(
             <Input />,

@@ -20,7 +20,7 @@ const ProjectWindow = ({ visible, onCancel, onCreate, form, project }) => {
           {getFieldDecorator('code', {
             initialValue: project.code,
             rules: [
-              { required: true, message: 'Please input the code' },
+              { required: true, message: 'Please input code' },
             ],
           })(
             <Input />,
@@ -30,7 +30,7 @@ const ProjectWindow = ({ visible, onCancel, onCreate, form, project }) => {
           {getFieldDecorator('name', {
             initialValue: project.name,
             rules: [
-              { required: true, message: 'Please input the name' },
+              { required: true, message: 'Please input name' },
             ],
           })(
             <Input />,
