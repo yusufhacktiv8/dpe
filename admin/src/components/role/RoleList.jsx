@@ -39,7 +39,11 @@ class RoleList extends Component {
         });
       })
       .catch((error) => {
-        console.error(error);
+        console.error(error.response);
+        message.error(`Error: ${error.response.data}, status: ${error.response.status}`);
+        this.setState({
+          loading: false,
+        });
       });
   }
 
