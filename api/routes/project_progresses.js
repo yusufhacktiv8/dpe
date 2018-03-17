@@ -4,7 +4,7 @@ const { isAuthorizedAsAdmin } = require('../helpers/AuthUtils');
 
 const router = express.Router();
 
-router.get('/', ProjectProgressController.findAll);
+router.get('/', isAuthorizedAsAdmin, ProjectProgressController.findAll);
 router.post('/batchcreate', isAuthorizedAsAdmin, ProjectProgressController.batchCreate);
 
 module.exports = router;

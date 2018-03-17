@@ -1,12 +1,13 @@
 const express = require('express');
 const UserController = require('../controllers/users.js');
+const { isAuthorizedAsAdmin } = require('../helpers/AuthUtils');
 
 const router = express.Router();
 
-router.get('/', UserController.findAll);
-router.get('/:userId', UserController.findOne);
-router.post('/', UserController.create);
-router.put('/:userId', UserController.update);
-router.delete('/:userId', UserController.destroy);
+router.get('/', isAuthorizedAsAdmin, UserController.findAll);
+router.get('/:userId', isAuthorizedAsAdmin, UserController.findOne);
+router.post('/', isAuthorizedAsAdmin, UserController.create);
+router.put('/:userId', isAuthorizedAsAdmin, UserController.update);
+router.delete('/:userId', isAuthorizedAsAdmin, UserController.destroy);
 
 module.exports = router;
