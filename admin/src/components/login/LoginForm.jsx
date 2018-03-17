@@ -6,7 +6,7 @@ import constant from '../../constant';
 
 const FormItem = Form.Item;
 
-const LOGIN_URL = `${constant.serverUrl}/authenticate`;
+const LOGIN_URL = `${constant.serverUrl}/api/security/signin`;
 
 class NormalLoginForm extends React.Component {
   handleSubmit = (e) => {
@@ -38,12 +38,12 @@ class NormalLoginForm extends React.Component {
               if (err2.response.status === 500) {
                 errorMessage = 'Ex. wrong username or password';
               } else {
-                errorMessage = `Status: ${err.response.status}`;
+                errorMessage = `Status: ${err2.response.status}`;
               }
             } else if (err2.request) {
               errorMessage = 'Login error.';
             } else {
-              errorMessage = err.message;
+              errorMessage = err2.message;
             }
             notification.error({
               message: 'Wrong username or password',
@@ -57,16 +57,13 @@ class NormalLoginForm extends React.Component {
     const { getFieldDecorator } = this.props.form;
     return (
       <Form onSubmit={this.handleSubmit} className="login-form">
-        <div style={{ width: 200, marginLeft: 'auto', marginRight: 'auto', marginBottom: 30 }}>
-          <span style={{ fontSize: 14, fontWeight: 'bold', color: '#5093E1', border: '1px dotted silver', borderRadius: 50, padding: 7 }}>
-            <Icon type="smile-o" style={{ marginRight: 5, color: '#5093E1', fontSize: 17 }} />
-            <span style={{ color: '#5093E1' }}>Pediatric</span>
-            <span style={{ color: '#5093E1' }}> Eye</span>
-            <span style={{ color: '#5093E1' }}> Clinic &trade;</span>
+        <div style={{ width: 145, marginLeft: 'auto', marginRight: 'auto', marginBottom: 30 }}>
+          <span style={{ fontSize: 14, fontWeight: 'bold', color: '#5093E1', border: '1px dotted silver', borderRadius: 50, padding: 8 }}>
+            <span style={{ color: '#5093E1' }}>DPE Dashboard</span>
           </span>
         </div>
         <FormItem>
-          {getFieldDecorator('email', {
+          {getFieldDecorator('username', {
             rules: [{ required: true, message: 'Please input your username!' }],
           })(
             <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="Username" />

@@ -4,6 +4,7 @@ import {
   BrowserRouter as Router,
   Route,
 } from 'react-router-dom';
+import axios from 'axios';
 import 'antd/dist/antd.css';
 
 import './App.css';
@@ -18,8 +19,6 @@ import ImagePage from './components/image/ImagePage';
 import LoginForm from './components/login/LoginForm';
 
 export default () => {
-  const token = window.sessionStorage.getItem('token');
-
   let componentToRender = (
     <Router>
       <Workspace>
@@ -33,11 +32,14 @@ export default () => {
     </Router>
   );
 
-  // if (!token) {
-  //   componentToRender = (
-  //     <LoginForm />
-  //   );
-  // }
+  const token = window.sessionStorage.getItem('token');
+  if (!token) {
+    componentToRender = (
+      <LoginForm />
+    );
+  } else {
+    axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+  }
 
   return (
     <div className="App">

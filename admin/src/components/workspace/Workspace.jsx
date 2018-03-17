@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Layout, Menu, Icon, Affix } from 'antd';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 const { Header, Content } = Layout;
 const SubMenu = Menu.SubMenu;
@@ -141,6 +142,7 @@ class Workspace extends Component {
                       to="/"
                       onClick={() => {
                         window.sessionStorage.removeItem('token');
+                        axios.defaults.headers.common['Authorization'] = null;
                         window.location.href = '/';
                       }}
                     ><Icon type="logout" />Logout</Link>
