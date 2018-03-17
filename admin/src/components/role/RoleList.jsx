@@ -67,6 +67,10 @@ class RoleList extends Component {
         .catch((error) => {
           hide();
           console.error(error);
+          message.error(`Error: ${error.response.data}, status: ${error.response.status}`);
+          this.setState({
+            loading: false,
+          });
         });
     } else {
       axios.post(ROLES_URL, role)
@@ -79,6 +83,10 @@ class RoleList extends Component {
         .catch((error) => {
           hide();
           console.error(error);
+          message.error(`Error: ${error.response.data}, status: ${error.response.status}`);
+          this.setState({
+            loading: false,
+          });
         });
     }
   }

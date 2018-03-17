@@ -40,6 +40,10 @@ class ProjectList extends Component {
       })
       .catch((error) => {
         console.error(error);
+        message.error(`Error: ${error.response.data}, status: ${error.response.status}`);
+        this.setState({
+          loading: false,
+        });
       });
   }
 
@@ -63,6 +67,10 @@ class ProjectList extends Component {
         .catch((error) => {
           hide();
           console.error(error);
+          message.error(`Error: ${error.response.data}, status: ${error.response.status}`);
+          this.setState({
+            loading: false,
+          });
         });
     } else {
       axios.post(PROJECTS_URL, project)
@@ -75,6 +83,10 @@ class ProjectList extends Component {
         .catch((error) => {
           hide();
           console.error(error);
+          message.error(`Error: ${error.response.data}, status: ${error.response.status}`);
+          this.setState({
+            loading: false,
+          });
         });
     }
   }

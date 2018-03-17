@@ -40,6 +40,10 @@ class ImageList extends Component {
       })
       .catch((error) => {
         console.error(error);
+        message.error(`Error: ${error.response.data}, status: ${error.response.status}`);
+        this.setState({
+          loading: false,
+        });
       });
   }
 
@@ -63,6 +67,10 @@ class ImageList extends Component {
         .catch((error) => {
           hide();
           console.error(error);
+          message.error(`Error: ${error.response.data}, status: ${error.response.status}`);
+          this.setState({
+            loading: false,
+          });
         });
     } else {
       axios.post(IMAGES_URL, image)
@@ -75,6 +83,10 @@ class ImageList extends Component {
         .catch((error) => {
           hide();
           console.error(error);
+          message.error(`Error: ${error.response.data}, status: ${error.response.status}`);
+          this.setState({
+            loading: false,
+          });
         });
     }
   }

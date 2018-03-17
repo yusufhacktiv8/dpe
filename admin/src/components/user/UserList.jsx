@@ -40,6 +40,10 @@ class UserList extends Component {
       })
       .catch((error) => {
         console.error(error);
+        message.error(`Error: ${error.response.data}, status: ${error.response.status}`);
+        this.setState({
+          loading: false,
+        });
       });
   }
 
@@ -63,6 +67,10 @@ class UserList extends Component {
         .catch((error) => {
           hide();
           console.error(error);
+          message.error(`Error: ${error.response.data}, status: ${error.response.status}`);
+          this.setState({
+            loading: false,
+          });
         });
     } else {
       axios.post(USERS_URL, user)
@@ -75,9 +83,12 @@ class UserList extends Component {
         .catch((error) => {
           hide();
           console.error(error);
+          message.error(`Error: ${error.response.data}, status: ${error.response.status}`);
+          this.setState({
+            loading: false,
+          });
         });
     }
-
   }
 
   deleteUser(user) {

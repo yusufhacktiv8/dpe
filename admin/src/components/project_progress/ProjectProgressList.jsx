@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Table, Button, Input, Row, Col } from 'antd';
-import constant from '../../constant';
 import numeral from 'numeral';
+import { Table, Button, Input, Row, Col, message } from 'antd';
+import constant from '../../constant';
 
 const PROJECT_PROGRESSES_URL = `${constant.serverUrl}/api/projectprogresses`;
 const Column = Table.Column;
@@ -38,6 +38,10 @@ class ProjectProgressList extends Component {
       })
       .catch((error) => {
         console.error(error);
+        message.error(`Error: ${error.response.data}, status: ${error.response.status}`);
+        this.setState({
+          loading: false,
+        });
       });
   }
 
