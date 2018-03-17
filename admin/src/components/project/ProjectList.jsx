@@ -40,7 +40,11 @@ class ProjectList extends Component {
       })
       .catch((error) => {
         console.error(error);
-        message.error(`Error: ${error.response.data}, status: ${error.response.status}`);
+        if (error.response) {
+            message.error(`Error: ${error.response.data}, status: ${error.response.status}`);
+          } else {
+            message.error(error.message);
+          }
         this.setState({
           loading: false,
         });
@@ -67,7 +71,11 @@ class ProjectList extends Component {
         .catch((error) => {
           hide();
           console.error(error);
-          message.error(`Error: ${error.response.data}, status: ${error.response.status}`);
+          if (error.response) {
+            message.error(`Error: ${error.response.data}, status: ${error.response.status}`);
+          } else {
+            message.error(error.message);
+          }
           this.setState({
             loading: false,
           });
@@ -83,7 +91,11 @@ class ProjectList extends Component {
         .catch((error) => {
           hide();
           console.error(error);
-          message.error(`Error: ${error.response.data}, status: ${error.response.status}`);
+          if (error.response) {
+            message.error(`Error: ${error.response.data}, status: ${error.response.status}`);
+          } else {
+            message.error(error.message);
+          }
           this.setState({
             loading: false,
           });

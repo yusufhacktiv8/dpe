@@ -16,18 +16,10 @@ class NormalLoginForm extends React.Component {
         console.log('Received values of form: ', values);
         axios.post(LOGIN_URL, values)
           .then((response) => {
-            const status = response.data.status;
             const token = response.data.token;
             if (typeof (Storage) !== 'undefined') {
-              if (status === 'LOGIN_ERROR') {
-                notification.error({
-                  message: 'Wrong username or password',
-                  description: '',
-                });
-              } else {
-                window.sessionStorage.setItem('token', token);
-                window.location.href = '/';
-              }
+              window.sessionStorage.setItem('token', token);
+              window.location.href = '/';
             } else {
                 alert('Sorry! No Web Storage support..');
             }
@@ -35,18 +27,16 @@ class NormalLoginForm extends React.Component {
           .catch((err2) => {
             let errorMessage = '';
             if (err2.response) {
-              if (err2.response.status === 500) {
-                errorMessage = 'Ex. wrong username or password';
+              if (err2.response.status === 403) {
+                errorMessage = 'Wrong username or password';
               } else {
                 errorMessage = `Status: ${err2.response.status}`;
               }
-            } else if (err2.request) {
-              errorMessage = 'Login error.';
             } else {
               errorMessage = err2.message;
             }
             notification.error({
-              message: 'Wrong username or password',
+              message: 'Login Problem',
               description: errorMessage,
             });
           });

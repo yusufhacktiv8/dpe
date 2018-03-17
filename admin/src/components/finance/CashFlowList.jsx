@@ -4,34 +4,34 @@ import numeral from 'numeral';
 import { Table, Button, Input, Row, Col, message } from 'antd';
 import constant from '../../constant';
 
-const BADS_URL = `${constant.serverUrl}/api/bads`;
+const CASH_FLOWS_URL = `${constant.serverUrl}/api/cashflows`;
 const Column = Table.Column;
 
-class BadList extends Component {
+class CashFlowList extends Component {
   state = {
     searchText: '',
-    bads: [],
+    cashFlows: [],
     loading: false,
     count: 0,
     currentPage: 1,
     pageSize: 10,
   }
   componentDidMount() {
-    this.getBads();
+    this.getCashFlows();
   }
 
-  getBads() {
+  getCashFlows() {
     this.setState({
       loading: true,
     });
-    axios.get(BADS_URL, { params: {
+    axios.get(CASH_FLOWS_URL, { params: {
       searchText: this.state.searchText,
       currentPage: this.state.currentPage,
       pageSize: this.state.pageSize,
     } })
       .then((response) => {
         this.setState({
-          bads: response.data.rows,
+          cashFlows: response.data.rows,
           count: response.data.count,
           loading: false,
         });
@@ -49,16 +49,16 @@ class BadList extends Component {
       });
   }
 
-  filterBads() {
+  filterCashFlows() {
     this.setState({
       currentPage: 1,
-    }, () => { this.getBads(); });
+    }, () => { this.getCashFlows(); });
   }
 
   pageChanged(page) {
     this.setState({
       currentPage: page,
-    }, () => { this.getBads(); });
+    }, () => { this.getCashFlows(); });
   }
 
   render() {
@@ -81,7 +81,7 @@ class BadList extends Component {
               <Button
                 shape="circle"
                 icon="search"
-                onClick={() => this.filterBads()}
+                onClick={() => this.filterCashFlows()}
                 style={{ marginRight: 15 }}
               />
             </span>
@@ -90,7 +90,7 @@ class BadList extends Component {
         <Row>
           <Col span={24}>
             <Table
-              dataSource={this.state.bads}
+              dataSource={this.state.cashFlows}
               style={{ marginTop: 20 }}
               rowKey="id"
               loading={this.state.loading}
@@ -103,9 +103,9 @@ class BadList extends Component {
               size="small"
             >
               <Column
-                title="Project Code"
-                dataIndex="Project.code"
-                key="Project.code"
+                title="Type Code"
+                dataIndex="CashFlow.typeCode"
+                key="CashFlow.typeCode"
               />
               <Column
                 title="Month"
@@ -114,37 +114,37 @@ class BadList extends Component {
               />
               <Column
                 title="Year"
-                dataIndex="year"
-                key="year"
+                dataIndex="CashFlow.year"
+                key="CashFlow.year"
               />
               <Column
-                title="Piutang Usaha"
-                dataIndex="piutangUsaha"
-                key="piutangUsaha"
+                title="RKAP"
+                dataIndex="CashFlow.rkap"
+                key="CashFlow.rkap"
                 render={text => (numeral(text).format('0,0.00'))}
               />
               <Column
-                title="Tagihan Bruto"
-                dataIndex="tagihanBruto"
-                key="tagihanBruto"
+                title="Rolling"
+                dataIndex="CashFlow.rolling"
+                key="CashFlow.rolling"
                 render={text => (numeral(text).format('0,0.00'))}
               />
               <Column
-                title="Piutang Retensi"
-                dataIndex="piutangRetensi"
-                key="piutangRetensi"
+                title="Ra"
+                dataIndex="ra"
+                key="ra"
                 render={text => (numeral(text).format('0,0.00'))}
               />
               <Column
-                title="PDP"
-                dataIndex="pdp"
-                key="pdp"
+                title="Prog"
+                dataIndex="prog"
+                key="prog"
                 render={text => (numeral(text).format('0,0.00'))}
               />
               <Column
-                title="BAD"
-                dataIndex="bad"
-                key="bad"
+                title="Ri"
+                dataIndex="ri"
+                key="ri"
                 render={text => (numeral(text).format('0,0.00'))}
               />
             </Table>
@@ -155,4 +155,4 @@ class BadList extends Component {
   }
 }
 
-export default BadList;
+export default CashFlowList;
