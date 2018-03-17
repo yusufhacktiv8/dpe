@@ -67,13 +67,14 @@ class CashFlowList extends Component {
         <Row gutter={10}>
           <Col span={8}>
             <Input
+              disabled
               value={this.state.searchText}
               onChange={(e) => {
                 this.setState({
                   searchText: e.target.value,
                 });
               }}
-              placeholder="Code or name"
+              placeholder=""
             />
           </Col>
           <Col span={16}>
