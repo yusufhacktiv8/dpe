@@ -21,6 +21,8 @@ const piutangs = require('./routes/piutangs');
 const projectTypes = require('./routes/project_types');
 const images = require('./routes/images');
 
+const dashboard = require('./routes/dashboard');
+
 var app = express();
 
 // view engine setup
@@ -51,6 +53,7 @@ app.use('/api/projections', projections);
 app.use('/api/piutangs', piutangs);
 app.use('/api/projecttypes', projectTypes);
 app.use('/api/images', images);
+app.use('/api/dashboard', dashboard);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

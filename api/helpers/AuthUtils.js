@@ -11,6 +11,17 @@ const isAuthorizedAsAdmin = function(req, res, next) {
   });
 };
 
+const isAuthorizedAsUser = function(req, res, next) {
+  const token = req.headers.authorization ? req.headers.authorization.replace('Bearer ', '') : undefined;
+  jwt.verify(token, process.env.JWT_ENV, function(err, decoded) {
+    if (decoded && (decoded.role === 'ADMIN' || decoded.role === 'USER')) {
+      next();
+    } else {
+      res.send('Unauthorized', 403);
+    }
+  });
+};
+
 const isAuthenticated = function(req, res, next) {
   const token = req.headers.authorization ? req.headers.authorization.replace('Bearer ', '') : undefined;
 
@@ -25,5 +36,6 @@ const isAuthenticated = function(req, res, next) {
 
 module.exports = {
   isAuthorizedAsAdmin,
+  isAuthorizedAsUser,
   isAuthenticated,
 };
