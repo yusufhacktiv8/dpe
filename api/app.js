@@ -17,6 +17,7 @@ const claims = require('./routes/claims');
 const bads = require('./routes/bads');
 const cashFlows = require('./routes/cash_flows');
 const projections = require('./routes/projections');
+const piutangs = require('./routes/piutangs');
 const projectTypes = require('./routes/project_types');
 const images = require('./routes/images');
 
@@ -47,6 +48,7 @@ app.use('/api/claims', claims);
 app.use('/api/bads', bads);
 app.use('/api/cashflows', cashFlows);
 app.use('/api/projections', projections);
+app.use('/api/piutangs', piutangs);
 app.use('/api/projecttypes', projectTypes);
 app.use('/api/images', images);
 
