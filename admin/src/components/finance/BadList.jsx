@@ -4,34 +4,34 @@ import numeral from 'numeral';
 import { Table, Button, Input, Row, Col, message } from 'antd';
 import constant from '../../constant';
 
-const PROJECT_PROGRESSES_URL = `${constant.serverUrl}/api/projectprogresses`;
+const BADS_URL = `${constant.serverUrl}/api/bads`;
 const Column = Table.Column;
 
-class ProjectProgressList extends Component {
+class BadList extends Component {
   state = {
     searchText: '',
-    projectProgresses: [],
+    bads: [],
     loading: false,
     count: 0,
     currentPage: 1,
     pageSize: 10,
   }
   componentDidMount() {
-    this.getProjectProgresses();
+    this.getBads();
   }
 
-  getProjectProgresses() {
+  getBads() {
     this.setState({
       loading: true,
     });
-    axios.get(PROJECT_PROGRESSES_URL, { params: {
+    axios.get(BADS_URL, { params: {
       searchText: this.state.searchText,
       currentPage: this.state.currentPage,
       pageSize: this.state.pageSize,
     } })
       .then((response) => {
         this.setState({
-          projectProgresses: response.data.rows,
+          bads: response.data.rows,
           count: response.data.count,
           loading: false,
         });
@@ -45,16 +45,16 @@ class ProjectProgressList extends Component {
       });
   }
 
-  filterProjectProgresses() {
+  filterBads() {
     this.setState({
       currentPage: 1,
-    }, () => { this.getProjectProgresses(); });
+    }, () => { this.getBads(); });
   }
 
   pageChanged(page) {
     this.setState({
       currentPage: page,
-    }, () => { this.getProjectProgresses(); });
+    }, () => { this.getBads(); });
   }
 
   render() {
@@ -77,7 +77,7 @@ class ProjectProgressList extends Component {
               <Button
                 shape="circle"
                 icon="search"
-                onClick={() => this.filterProjectProgresses()}
+                onClick={() => this.filterBads()}
                 style={{ marginRight: 15 }}
               />
             </span>
@@ -86,7 +86,7 @@ class ProjectProgressList extends Component {
         <Row>
           <Col span={24}>
             <Table
-              dataSource={this.state.projectProgresses}
+              dataSource={this.state.bads}
               style={{ marginTop: 20 }}
               rowKey="id"
               loading={this.state.loading}
@@ -114,57 +114,33 @@ class ProjectProgressList extends Component {
                 key="year"
               />
               <Column
-                title="RKAP OK"
-                dataIndex="rkapOk"
-                key="rkapOk"
+                title="Piutang Usaha"
+                dataIndex="piutangUsaha"
+                key="piutangUsaha"
                 render={text => (numeral(text).format('0,0.00'))}
               />
               <Column
-                title="RKAP OP"
-                dataIndex="rkapOp"
-                key="rkapOp"
+                title="Tagihan Bruto"
+                dataIndex="tagihanBruto"
+                key="tagihanBruto"
                 render={text => (numeral(text).format('0,0.00'))}
               />
               <Column
-                title="RKAP LK"
-                dataIndex="rkapLk"
-                key="rkapLk"
+                title="Piutang Retensi"
+                dataIndex="piutangRetensi"
+                key="piutangRetensi"
                 render={text => (numeral(text).format('0,0.00'))}
               />
               <Column
-                title="Prognosa OK"
-                dataIndex="prognosaOk"
-                key="prognosaOk"
+                title="PDP"
+                dataIndex="pdp"
+                key="pdp"
                 render={text => (numeral(text).format('0,0.00'))}
               />
               <Column
-                title="Prognosa OP"
-                dataIndex="prognosaOp"
-                key="prognosaOp"
-                render={text => (numeral(text).format('0,0.00'))}
-              />
-              <Column
-                title="Prognosa LK"
-                dataIndex="prognosaLk"
-                key="prognosaLk"
-                render={text => (numeral(text).format('0,0.00'))}
-              />
-              <Column
-                title="Realisasi OK"
-                dataIndex="realisasiOk"
-                key="realisasiOk"
-                render={text => (numeral(text).format('0,0.00'))}
-              />
-              <Column
-                title="Realisasi OP"
-                dataIndex="realisasiOp"
-                key="realisasiOp"
-                render={text => (numeral(text).format('0,0.00'))}
-              />
-              <Column
-                title="Realisasi LK"
-                dataIndex="realisasiLk"
-                key="realisasiLk"
+                title="BAD"
+                dataIndex="bad"
+                key="bad"
                 render={text => (numeral(text).format('0,0.00'))}
               />
             </Table>
@@ -175,4 +151,4 @@ class ProjectProgressList extends Component {
   }
 }
 
-export default ProjectProgressList;
+export default BadList;

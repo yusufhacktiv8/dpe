@@ -15,6 +15,7 @@ import UserPage from './components/user/UserPage';
 import RolePage from './components/role/RolePage';
 import ProjectPage from './components/project/ProjectPage';
 import ProjectProgressPage from './components/project_progress/ProjectProgressPage';
+import BadPage from './components/finance/BadPage';
 import ImagePage from './components/image/ImagePage';
 import LoginForm from './components/login/LoginForm';
 
@@ -27,6 +28,7 @@ export default () => {
         <Route exact path="/roles" component={RolePage} />
         <Route exact path="/projects" component={ProjectPage} />
         <Route exact path="/projectprogresses" component={ProjectProgressPage} />
+        <Route exact path="/bads" component={BadPage} />
         <Route exact path="/images" component={ImagePage} />
       </Workspace>
     </Router>
