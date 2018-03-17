@@ -16,6 +16,7 @@ const lsps = require('./routes/lsps');
 const claims = require('./routes/claims');
 const bads = require('./routes/bads');
 const cashFlows = require('./routes/cash_flows');
+const projections = require('./routes/projections');
 const projectTypes = require('./routes/project_types');
 const images = require('./routes/images');
 
@@ -45,6 +46,7 @@ app.use('/api/lsps', lsps);
 app.use('/api/claims', claims);
 app.use('/api/bads', bads);
 app.use('/api/cashflows', cashFlows);
+app.use('/api/projections', projections);
 app.use('/api/projecttypes', projectTypes);
 app.use('/api/images', images);
 

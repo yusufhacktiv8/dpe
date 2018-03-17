@@ -17,6 +17,7 @@ import ProjectPage from './components/project/ProjectPage';
 import ProjectProgressPage from './components/project_progress/ProjectProgressPage';
 import BadPage from './components/finance/BadPage';
 import CashFlowPage from './components/finance/CashFlowPage';
+import ProjectionPage from './components/finance/ProjectionPage';
 import ImagePage from './components/image/ImagePage';
 import LoginForm from './components/login/LoginForm';
 
@@ -31,6 +32,7 @@ export default () => {
         <Route exact path="/projectprogresses" component={ProjectProgressPage} />
         <Route exact path="/bads" component={BadPage} />
         <Route exact path="/cashflows" component={CashFlowPage} />
+        <Route exact path="/projections" component={ProjectionPage} />
         <Route exact path="/images" component={ImagePage} />
       </Workspace>
     </Router>
