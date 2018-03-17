@@ -5,10 +5,10 @@ const { isAuthorizedAsAdmin } = require('../helpers/AuthUtils');
 
 const router = express.Router();
 
-router.get('/', isAuthorizedAsAdmin, RoleController.findAll);
-router.get('/:roleId', RoleController.findOne);
-router.post('/', RoleController.create);
-router.put('/:roleId', RoleController.update);
-router.delete('/:roleId', RoleController.destroy);
+router.get('/', isAuthorizedAsAdmin, isAuthorizedAsAdmin, RoleController.findAll);
+router.get('/:roleId', isAuthorizedAsAdmin, RoleController.findOne);
+router.post('/', isAuthorizedAsAdmin, RoleController.create);
+router.put('/:roleId', isAuthorizedAsAdmin, RoleController.update);
+router.delete('/:roleId', isAuthorizedAsAdmin, RoleController.destroy);
 
 module.exports = router;

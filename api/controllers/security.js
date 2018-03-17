@@ -35,7 +35,7 @@ exports.signIn = function(req, res) {
         const token = jwt.sign({
           name: user.name,
           role: user.Role.code,
-        }, process.env.JWT_ENV);
+        }, process.env.JWT_ENV, { expiresIn: 60 * 30 });
         res.json({
           token,
         });
