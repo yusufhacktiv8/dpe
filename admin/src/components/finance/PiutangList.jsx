@@ -102,44 +102,171 @@ class PiutangList extends Component {
               }}
               onChange={pagination => this.pageChanged(pagination.current)}
               size="small"
+              scroll={{ x: 2900 }}
             >
               <Column
+                width="30"
                 title="Month"
                 dataIndex="month"
                 key="month"
+                fixed="left"
               />
               <Column
+                width="50"
                 title="Year"
                 dataIndex="year"
                 key="year"
+                fixed="left"
               />
               <Column
+                width="100"
                 title="Owner"
                 dataIndex="owner"
                 key="owner"
+                fixed="left"
               />
               <Column
+                width="100"
                 title="PDP 1"
                 dataIndex="pdp1"
                 key="pdp1"
                 render={text => (numeral(text).format('0,0.00'))}
               />
               <Column
+                width="100"
                 title="Tagihan Bruto 1"
                 dataIndex="tagihanBruto1"
                 key="tagihanBruto1"
                 render={text => (numeral(text).format('0,0.00'))}
               />
               <Column
+                width="100"
                 title="Piutang Usaha 1"
                 dataIndex="piutangUsaha1"
                 key="piutangUsaha1"
                 render={text => (numeral(text).format('0,0.00'))}
               />
               <Column
+                width="100"
                 title="Piutang Retensi 1"
                 dataIndex="piutangRetensi1"
                 key="piutangRetensi1"
+                render={text => (numeral(text).format('0,0.00'))}
+              />
+
+              <Column
+                width="100"
+                title="PDP 2"
+                dataIndex="pdp2"
+                key="pdp2"
+                render={text => (numeral(text).format('0,0.00'))}
+              />
+              <Column
+                width="100"
+                title="Tagihan Bruto 2"
+                dataIndex="tagihanBruto2"
+                key="tagihanBruto2"
+                render={text => (numeral(text).format('0,0.00'))}
+              />
+              <Column
+                width="100"
+                title="Piutang Usaha 2"
+                dataIndex="piutangUsaha2"
+                key="piutangUsaha2"
+                render={text => (numeral(text).format('0,0.00'))}
+              />
+              <Column
+                width="100"
+                title="Piutang Retensi 2"
+                dataIndex="piutangRetensi2"
+                key="piutangRetensi2"
+                render={text => (numeral(text).format('0,0.00'))}
+              />
+
+              <Column
+                width="100"
+                title="PDP 3"
+                dataIndex="pdp3"
+                key="pdp3"
+                render={text => (numeral(text).format('0,0.00'))}
+              />
+              <Column
+                width="100"
+                title="Tagihan Bruto 3"
+                dataIndex="tagihanBruto3"
+                key="tagihanBruto3"
+                render={text => (numeral(text).format('0,0.00'))}
+              />
+              <Column
+                width="100"
+                title="Piutang Usaha 3"
+                dataIndex="piutangUsaha3"
+                key="piutangUsaha3"
+                render={text => (numeral(text).format('0,0.00'))}
+              />
+              <Column
+                width="100"
+                title="Piutang Retensi 3"
+                dataIndex="piutangRetensi3"
+                key="piutangRetensi3"
+                render={text => (numeral(text).format('0,0.00'))}
+              />
+
+              <Column
+                width="100"
+                title="PDP 4"
+                dataIndex="pdp4"
+                key="pdp4"
+                render={text => (numeral(text).format('0,0.00'))}
+              />
+              <Column
+                width="100"
+                title="Tagihan Bruto 4"
+                dataIndex="tagihanBruto4"
+                key="tagihanBruto4"
+                render={text => (numeral(text).format('0,0.00'))}
+              />
+              <Column
+                width="100"
+                title="Piutang Usaha 4"
+                dataIndex="piutangUsaha4"
+                key="piutangUsaha4"
+                render={text => (numeral(text).format('0,0.00'))}
+              />
+              <Column
+                width="100"
+                title="Piutang Retensi 4"
+                dataIndex="piutangRetensi4"
+                key="piutangRetensi4"
+                render={text => (numeral(text).format('0,0.00'))}
+              />
+
+              <Column
+                width="100"
+                title="PDP 5"
+                dataIndex="pdp5"
+                key="pdp5"
+                render={text => (numeral(text).format('0,0.00'))}
+              />
+              <Column
+                width="100"
+                title="Tagihan Bruto 5"
+                dataIndex="tagihanBruto5"
+                key="tagihanBruto5"
+                render={text => (numeral(text).format('0,0.00'))}
+              />
+              <Column
+                width="100"
+                title="Piutang Usaha 5"
+                dataIndex="piutangUsaha5"
+                key="piutangUsaha5"
+                render={text => (numeral(text).format('0,0.00'))}
+              />
+              <Column
+                width="100"
+                title="Piutang Retensi 5"
+                dataIndex="piutangRetensi5"
+                key="piutangRetensi5"
                 render={text => (numeral(text).format('0,0.00'))}
               />
             </Table>
