@@ -19,6 +19,7 @@ const cashFlows = require('./routes/cash_flows');
 const projections = require('./routes/projections');
 const piutangs = require('./routes/piutangs');
 const projectTypes = require('./routes/project_types');
+const okDetails = require('./routes/ok_details');
 const images = require('./routes/images');
 
 const dashboard = require('./routes/dashboard');
@@ -54,6 +55,7 @@ app.use('/api/piutangs', piutangs);
 app.use('/api/projecttypes', projectTypes);
 app.use('/api/images', images);
 app.use('/api/dashboard', dashboard);
+app.use('/api/okdetails', okDetails);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
