@@ -41,11 +41,9 @@ exports.getMainData = (month, year, resultCallback) => {
       include: [
         {
           model: models.Project,
-          include: [
-            {
-              model: models.ProjectType,
-            },
-          ],
+        },
+        {
+          model: models.ProjectType,
         },
       ],
     })
@@ -54,10 +52,10 @@ exports.getMainData = (month, year, resultCallback) => {
       const sums = [];
       for (let i = 0; i < rows.length; i += 1) {
         const row = rows[i];
-        if (!projectTypes[row.Project.ProjectType.id]) {
-          projectTypes[row.Project.ProjectType.id] = [];
+        if (!projectTypes[row.ProjectType.id]) {
+          projectTypes[row.ProjectType.id] = [];
         }
-        projectTypes[row.Project.ProjectType.id].push(row);
+        projectTypes[row.ProjectType.id].push(row);
       }
       const keys = Object.keys(projectTypes);
       for (let i = 0; i < keys.length; i += 1) {
@@ -114,11 +112,9 @@ exports.getMainData = (month, year, resultCallback) => {
       include: [
         {
           model: models.Project,
-          include: [
-            {
-              model: models.ProjectType,
-            },
-          ],
+        },
+        {
+          model: models.ProjectType,
         },
       ],
     })
@@ -127,10 +123,10 @@ exports.getMainData = (month, year, resultCallback) => {
       const sums = [];
       for (let i = 0; i < rows.length; i += 1) {
         const row = rows[i].dataValues;
-        if (!projectTypes[row.Project.ProjectType.id]) {
-          projectTypes[row.Project.ProjectType.id] = [];
+        if (!projectTypes[row.ProjectType.id]) {
+          projectTypes[row.ProjectType.id] = [];
         }
-        projectTypes[row.Project.ProjectType.id].push(row);
+        projectTypes[row.ProjectType.id].push(row);
       }
       // const keys = Object.keys(projectTypes);
       models.ProjectType.findAll({
@@ -232,11 +228,9 @@ exports.getMainData = (month, year, resultCallback) => {
       include: [
         {
           model: models.Project,
-          include: [
-            {
-              model: models.ProjectType,
-            },
-          ],
+        },
+        {
+          model: models.ProjectType,
         },
       ],
     })

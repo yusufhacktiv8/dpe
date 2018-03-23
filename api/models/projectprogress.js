@@ -22,6 +22,7 @@ module.exports = function(sequelize, DataTypes) {
 
   ProjectProgress.associate = function (models) {
     ProjectProgress.belongsTo(models.Project, { onDelete: 'restrict' });
+    ProjectProgress.belongsTo(models.ProjectType, { onDelete: 'restrict' });
   };
 
   return ProjectProgress;
