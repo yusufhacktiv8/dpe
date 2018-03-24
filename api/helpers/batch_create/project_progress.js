@@ -67,6 +67,7 @@ const insertToDb = (existingProjectCodes, projectProgresses) => (
         const prognosaOk = projectProgresses[i].prognosaOk;
         const prognosaOp = projectProgresses[i].prognosaOp;
         const prognosaLk = projectProgresses[i].prognosaLk;
+        const projectTypeId = projectProgresses[i].projectType;
 
         promises.push(new Promise((resolve2, reject2) => {
           models.ProjectProgress.create({
@@ -82,6 +83,7 @@ const insertToDb = (existingProjectCodes, projectProgresses) => (
             prognosaOp,
             prognosaLk,
             ProjectId: projectCodes[projectCode],
+            ProjectTypeId: projectTypeId,
           })
           .then(() => {
             resolve2({
