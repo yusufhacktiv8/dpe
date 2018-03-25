@@ -1,4 +1,5 @@
 const sequelize = require('sequelize');
+const _ = require('lodash');
 const models = require('../models');
 
 const sendError = (err, res) => {
@@ -39,7 +40,7 @@ const getLatesRealizationMonth = (year) => {
 const findProjectProgresses = (year, month) => {
   return new Promise((resolve, reject) => {
     models.ProjectProgress.findAll({
-      where: { year, month },
+      where: { year, month: { $lte: month } },
       order: [[models.Project, 'code'], 'month', 'year'],
       include: [
         {
@@ -52,7 +53,7 @@ const findProjectProgresses = (year, month) => {
         return {
           projectCode: obj.Project.code,
           projectName: obj.Project.name,
-          projectType: obj.Project.ProjectTypeId,
+          projectType: obj.ProjectTypeId,
           prognosaLk: obj.prognosaLk,
           prognosaOk: obj.prognosaOk,
           prognosaOp: obj.prognosaOp,
@@ -71,60 +72,162 @@ const findProjectProgresses = (year, month) => {
   });
 };
 
-exports.getData = function findAll(req, res) {
-  const year = req.params.year;
-  const month = req.params.month;
+const rkapData = (year) => {
+  return new Promise((resolve, reject) => {
+    const result = [];
+    const tempResultMap = {};
+    findProjectProgresses(year, 12)
+    .then((projectProgresses) => {
+      for (let i = 0; i < projectProgresses.length; i += 1) {
+        const projectProgress = projectProgresses[i];
+        if (!(projectProgress.projectCode in tempResultMap)) {
+          tempResultMap[projectProgress.projectCode] = {
+            projectCode: projectProgress.projectCode,
+            projectName: projectProgress.projectName,
+            projectType: projectProgress.projectType,
+            rkapLk: projectProgress.rkapLk,
+            rkapOk: projectProgress.rkapOk,
+            rkapOp: projectProgress.rkapOp,
+          };
+        } else {
+          tempResultMap[projectProgress.projectCode].rkapLk += projectProgress.rkapLk;
+          tempResultMap[projectProgress.projectCode].rkapOk += projectProgress.rkapOk;
+          tempResultMap[projectProgress.projectCode].rkapOp += projectProgress.rkapOp;
+        }
+      }
+      Object.keys(tempResultMap).forEach((key) => {
+        result.push(tempResultMap[key]);
+      });
+      resolve(result);
+    })
+    .catch((err) => {
+      reject(err);
+    });
+  });
+};
 
-  const tempResultMap = {};
-  const result = [];
-
-  getLatesRealizationMonth(year)
-  .then((latestRealizationMonth) => {
+const realisasiData = (year, month) => {
+  return new Promise((resolve, reject) => {
+    const result = [];
+    const tempResultMap = {};
     findProjectProgresses(year, month)
     .then((projectProgresses) => {
       for (let i = 0; i < projectProgresses.length; i += 1) {
         const projectProgress = projectProgresses[i];
         if (!(projectProgress.projectCode in tempResultMap)) {
           tempResultMap[projectProgress.projectCode] = {
-            projectcode: projectProgress.projectcode,
-            projectName: projectProgress.projectName,
-            projectType: projectProgress.projectType,
-            prognosaLk: projectProgress.prognosaLk,
-            prognosaOk: projectProgress.prognosaOk,
-            prognosaOp: projectProgress.prognosaOp,
+            projectCode: projectProgress.projectCode,
             realisasiLk: projectProgress.realisasiLk,
             realisasiOk: projectProgress.realisasiOk,
             realisasiOp: projectProgress.realisasiOp,
-            rkapLk: projectProgress.rkapLk,
-            rkapOk: projectProgress.rkapOk,
-            rkapOp: projectProgress.rkapOp,
           };
         } else {
-          if (projectProgress.month > latestRealizationMonth) {
-            tempResultMap[projectProgress.projectCode].prognosaLk = tempResultMap[projectProgress.projectCode].prognosaLk + projectProgress.prognosaLk;
-            tempResultMap[projectProgress.projectCode].prognosaOk = tempResultMap[projectProgress.projectCode].prognosaOk + projectProgress.prognosaOk;
-            tempResultMap[projectProgress.projectCode].prognosaOp = tempResultMap[projectProgress.projectCode].prognosaOp + projectProgress.prognosaOp;
-          } else {
-            tempResultMap[projectProgress.projectCode].prognosaLk = tempResultMap[projectProgress.projectCode].prognosaLk + projectProgress.realisasiLk;
-            tempResultMap[projectProgress.projectCode].prognosaOk = tempResultMap[projectProgress.projectCode].prognosaOk + projectProgress.realisasiOk;
-            tempResultMap[projectProgress.projectCode].prognosaOp = tempResultMap[projectProgress.projectCode].prognosaOp + projectProgress.realisasiOp;
-          }
-          tempResultMap[projectProgress.projectCode].realisasiLk = tempResultMap[projectProgress.projectCode].realisasiLk + projectProgress.realisasiLk;
-          tempResultMap[projectProgress.projectCode].realisasiOk = tempResultMap[projectProgress.projectCode].realisasiOk + projectProgress.realisasiOk;
-          tempResultMap[projectProgress.projectCode].realisasiOp = tempResultMap[projectProgress.projectCode].realisasiOp + projectProgress.realisasiOp;
-
-          tempResultMap[projectProgress.projectCode].rkapLk = tempResultMap[projectProgress.projectCode].rkapLk + projectProgress.rkapLk;
-          tempResultMap[projectProgress.projectCode].rkapOk = tempResultMap[projectProgress.projectCode].rkapOk + projectProgress.rkapOk;
-          tempResultMap[projectProgress.projectCode].rkapOp = tempResultMap[projectProgress.projectCode].rkapOp + projectProgress.rkapOp;
+          tempResultMap[projectProgress.projectCode].realisasiLk += projectProgress.realisasiLk;
+          tempResultMap[projectProgress.projectCode].realisasiOk += projectProgress.realisasiOk;
+          tempResultMap[projectProgress.projectCode].realisasiOp += projectProgress.realisasiOp;
         }
       }
       Object.keys(tempResultMap).forEach((key) => {
         result.push(tempResultMap[key]);
       });
-      res.json(result);
+      resolve(result);
     })
     .catch((err) => {
-      sendError(err, res);
+      reject(err);
     });
+  });
+};
+
+const prognosaData = (year, month, latestRealizationMonth) => {
+  return new Promise((resolve, reject) => {
+    const result = [];
+    const tempResultMap = {};
+    findProjectProgresses(year, month)
+    .then((projectProgresses) => {
+      for (let i = 0; i < projectProgresses.length; i += 1) {
+        const projectProgress = projectProgresses[i];
+        if (!(projectProgress.projectCode in tempResultMap)) {
+          if (projectProgress.month > latestRealizationMonth) {
+            tempResultMap[projectProgress.projectCode] = {
+              projectCode: projectProgress.projectCode,
+              prognosaLk: projectProgress.prognosaLk,
+              prognosaOk: projectProgress.prognosaOk,
+              prognosaOp: projectProgress.prognosaOp,
+            };
+          } else {
+            tempResultMap[projectProgress.projectCode] = {
+              projectCode: projectProgress.projectCode,
+              prognosaLk: projectProgress.realisasiLk,
+              prognosaOk: projectProgress.realisasiOk,
+              prognosaOp: projectProgress.realisasiOp,
+            };
+          }
+        } else {
+          if (projectProgress.month > latestRealizationMonth) {
+            tempResultMap[projectProgress.projectCode].prognosaLk += projectProgress.prognosaLk;
+            tempResultMap[projectProgress.projectCode].prognosaOk += projectProgress.prognosaOk;
+            tempResultMap[projectProgress.projectCode].prognosaOp += projectProgress.prognosaOp;
+          } else {
+            tempResultMap[projectProgress.projectCode].prognosaLk += projectProgress.realisasiLk;
+            tempResultMap[projectProgress.projectCode].prognosaOk += projectProgress.realisasiOk;
+            tempResultMap[projectProgress.projectCode].prognosaOp += projectProgress.realisasiOp;
+          }
+        }
+      }
+      Object.keys(tempResultMap).forEach((key) => {
+        result.push(tempResultMap[key]);
+      });
+      resolve(result);
+    })
+    .catch((err) => {
+      reject(err);
+    });
+  });
+};
+
+exports.getData = function findAll(req, res) {
+  const year = req.params.year;
+  const month = req.params.month;
+
+  getLatesRealizationMonth(year)
+  .then((latestRealizationMonth) => {
+    rkapData(year).then((rkapDataResult) => {
+      realisasiData(year, month)
+      .then((realisasiDataResult) => {
+        for (let i = 0; i < realisasiDataResult.length; i += 1) {
+          const realisasi = realisasiDataResult[i];
+          const rkap = _.find(rkapDataResult, (obj) => {
+            return obj.projectCode === realisasi.projectCode;
+          });
+          rkap.realisasiLk = realisasi.realisasiLk;
+          rkap.realisasiOk = realisasi.realisasiOk;
+          rkap.realisasiOp = realisasi.realisasiOp;
+        }
+        prognosaData(year, month, latestRealizationMonth)
+        .then((prognosaDataResult) => {
+          for (let i = 0; i < prognosaDataResult.length; i += 1) {
+            const prognosa = prognosaDataResult[i];
+            const rkap = _.find(rkapDataResult, (obj) => {
+              return obj.projectCode === prognosa.projectCode;
+            });
+            rkap.prognosaLk = prognosa.prognosaLk;
+            rkap.prognosaOk = prognosa.prognosaOk;
+            rkap.prognosaOp = prognosa.prognosaOp;
+          }
+          res.json(rkapDataResult);
+        });
+      });
+    });
+    // console.log('Total RKAP OK: ', result.reduce((total, obj) => {
+    //   return total + parseFloat(obj.rkapOk);
+    // }, 0));
+    //
+    // console.log('Total RI OK: ', result.reduce((total, obj) => {
+    //   return total + parseFloat(obj.realisasiOk);
+    // }, 0));
+    //
+    // console.log('Total Prognosa OK: ', result.reduce((total, obj) => {
+    //   return total + parseFloat(obj.prognosaOk);
+    // }, 0));
   });
 };
