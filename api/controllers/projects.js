@@ -17,9 +17,6 @@ exports.findAll = function findAll(req, res) {
       ],
     },
     order: ['code'],
-    include: [
-      { model: models.ProjectType },
-    ],
     limit,
     offset,
   })
@@ -45,47 +42,28 @@ exports.findOne = function findOne(req, res) {
 
 exports.create = function create(req, res) {
   const projectForm = req.body;
-  const projectTypeId = projectForm.projectType;
 
-  models.ProjectType.findOne({
-    where: { id: projectTypeId },
+  models.Project.create(projectForm)
+  .then((project) => {
+    res.json(project);
   })
-  .then((projectType) => {
-    models.Project.create(projectForm)
-    .then((project) => {
-      project.setProjectType(projectType)
-      .then((result) => {
-        res.json(result);
-      });
-    })
-    .catch((err) => {
-      sendError(err, res);
-    });
+  .catch((err) => {
+    sendError(err, res);
   });
 };
 
 exports.update = function update(req, res) {
   const projectForm = req.body;
-  const projectTypeId = projectForm.projectType;
 
   models.Project.findOne({
     where: { id: req.params.projectId },
   })
   .then((project) => {
-    models.ProjectType.findOne({
-      where: { id: projectTypeId },
-    })
-    .then((projectType) => {
-      project.setProjectType(projectType)
-      .then(() => {
-        project.code = projectForm.code;
-        project.name = projectForm.name;
-
-        project.save()
-        .then((saveResult) => {
-          res.json(saveResult);
-        });
-      });
+    project.code = projectForm.code;
+    project.name = projectForm.name;
+    project.save()
+    .then((saveResult) => {
+      res.json(saveResult);
     });
   })
   .catch((err) => {

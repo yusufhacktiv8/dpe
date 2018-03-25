@@ -36,16 +36,6 @@ const ProjectWindow = ({ visible, onCancel, onCreate, form, project }) => {
             <Input />,
           )}
         </FormItem>
-        <FormItem label="Project Type">
-          {getFieldDecorator('projectType', {
-            initialValue: (project.ProjectType || {}).id,
-            rules: [
-              { required: true, message: 'Please input project type' },
-            ],
-          })(
-            <ProjectTypeSelect />,
-          )}
-        </FormItem>
       </Form>
     </Modal>
   );

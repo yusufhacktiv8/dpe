@@ -23,6 +23,7 @@ exports.findAll = function findAll(req, res) {
           ],
         },
       },
+      { model: models.ProjectType },
     ],
     limit,
     offset,
