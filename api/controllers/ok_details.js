@@ -142,7 +142,7 @@ const prognosaData = (year, month, latestRealizationMonth) => {
   return new Promise((resolve, reject) => {
     const result = [];
     const tempResultMap = {};
-    findProjectProgresses(year, month)
+    findProjectProgresses(year, 12)
     .then((projectProgresses) => {
       for (let i = 0; i < projectProgresses.length; i += 1) {
         const projectProgress = projectProgresses[i];
@@ -163,7 +163,7 @@ const prognosaData = (year, month, latestRealizationMonth) => {
             };
           }
         } else {
-          if (projectProgress.month > latestRealizationMonth) {
+          if ((projectProgress.month > latestRealizationMonth) || (projectProgress.month === 12)) {
             tempResultMap[projectProgress.projectCode].prognosaLk += projectProgress.prognosaLk;
             tempResultMap[projectProgress.projectCode].prognosaOk += projectProgress.prognosaOk;
             tempResultMap[projectProgress.projectCode].prognosaOp += projectProgress.prognosaOp;
@@ -203,6 +203,7 @@ exports.getData = function findAll(req, res) {
           rkap.realisasiOk = realisasi.realisasiOk;
           rkap.realisasiOp = realisasi.realisasiOp;
         }
+        console.log('realisasiDataResult: ', realisasiDataResult);
         prognosaData(year, month, latestRealizationMonth)
         .then((prognosaDataResult) => {
           for (let i = 0; i < prognosaDataResult.length; i += 1) {

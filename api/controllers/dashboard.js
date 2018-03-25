@@ -135,6 +135,7 @@ exports.getDashboardData = (req, res) => {
           fillData(totalProyekBaruDiperolehJO, data);
           break;
         case 6:
+          console.log('Intern : ', data);
           fillData(totalProyekBaruDiperolehIntern, data);
           break;
         case 7:
@@ -203,25 +204,25 @@ exports.getDashboardData = (req, res) => {
     const ppLastMonthOfYear = mainDataResult.sumProjectProgressLastMonthOfYear;
 
     if (ppLastMonthOfYear[0]) {
-      result.data5.ok = (ppLastMonthOfYear[0].sum_prognosa_ok + ppLastMonthOfYear[1].sum_prognosa_ok) -
+      result.data5.ok = (ppLastMonthOfYear[0].sum_prognosa_ok + ppLastMonthOfYear[1].sum_prognosa_ok + ppLastMonthOfYear[2].sum_prognosa_ok) -
       (totalProyekLamaNonJO.sum_realisasi_ok + totalProyekLamaJO.sum_realisasi_ok + totalProyekLamaIntern.sum_realisasi_ok);
-      result.data5.op = (ppLastMonthOfYear[0].sum_prognosa_op + ppLastMonthOfYear[1].sum_prognosa_op) -
+      result.data5.op = (ppLastMonthOfYear[0].sum_prognosa_op + ppLastMonthOfYear[1].sum_prognosa_op + ppLastMonthOfYear[2].sum_prognosa_op) -
       (totalProyekLamaNonJO.sum_realisasi_op + totalProyekLamaJO.sum_realisasi_op + totalProyekLamaIntern.sum_realisasi_op);
-      result.data5.lk = (ppLastMonthOfYear[0].sum_prognosa_lk + ppLastMonthOfYear[1].sum_prognosa_lk) -
+      result.data5.lk = (ppLastMonthOfYear[0].sum_prognosa_lk + ppLastMonthOfYear[1].sum_prognosa_lk + ppLastMonthOfYear[2].sum_prognosa_lk) -
       (totalProyekLamaNonJO.sum_realisasi_lk + totalProyekLamaJO.sum_realisasi_lk + totalProyekLamaIntern.sum_realisasi_lk);
 
-      result.data6.ok = (ppLastMonthOfYear[2].sum_prognosa_ok + ppLastMonthOfYear[3].sum_prognosa_ok) -
+      result.data6.ok = (ppLastMonthOfYear[3].sum_prognosa_ok + ppLastMonthOfYear[4].sum_prognosa_ok + ppLastMonthOfYear[5].sum_prognosa_ok) -
       (totalProyekBaruDiperolehNonJO.sum_realisasi_ok + totalProyekBaruDiperolehJO.sum_realisasi_ok + totalProyekBaruDiperolehIntern.sum_realisasi_ok);
-      result.data6.op = (ppLastMonthOfYear[2].sum_prognosa_op + ppLastMonthOfYear[3].sum_prognosa_op) -
+      result.data6.op = (ppLastMonthOfYear[3].sum_prognosa_op + ppLastMonthOfYear[4].sum_prognosa_op + ppLastMonthOfYear[5].sum_prognosa_op) -
       (totalProyekBaruDiperolehNonJO.sum_realisasi_op + totalProyekBaruDiperolehJO.sum_realisasi_op + totalProyekBaruDiperolehIntern.sum_realisasi_op);
-      result.data6.lk = (ppLastMonthOfYear[2].sum_prognosa_lk + ppLastMonthOfYear[3].sum_prognosa_lk) -
+      result.data6.lk = (ppLastMonthOfYear[3].sum_prognosa_lk + ppLastMonthOfYear[4].sum_prognosa_lk + ppLastMonthOfYear[5].sum_prognosa_lk) -
       (totalProyekBaruDiperolehNonJO.sum_realisasi_lk + totalProyekBaruDiperolehJO.sum_realisasi_lk + totalProyekBaruDiperolehIntern.sum_realisasi_lk);
 
-      result.data7.ok = (ppLastMonthOfYear[4].sum_prognosa_ok + ppLastMonthOfYear[5].sum_prognosa_ok) -
+      result.data7.ok = (ppLastMonthOfYear[6].sum_prognosa_ok + ppLastMonthOfYear[7].sum_prognosa_ok + ppLastMonthOfYear[8].sum_prognosa_ok) -
       (totalProyekBaruPengusahaanNonJO.sum_realisasi_ok + totalProyekBaruPengusahaanJO.sum_realisasi_ok + totalProyekBaruPengusahaanIntern.sum_realisasi_ok);
-      result.data7.op = (ppLastMonthOfYear[4].sum_prognosa_op + ppLastMonthOfYear[5].sum_prognosa_op) -
+      result.data7.op = (ppLastMonthOfYear[6].sum_prognosa_op + ppLastMonthOfYear[7].sum_prognosa_op + ppLastMonthOfYear[8].sum_prognosa_op) -
       (totalProyekBaruPengusahaanNonJO.sum_realisasi_op + totalProyekBaruPengusahaanJO.sum_realisasi_op + totalProyekBaruPengusahaanIntern.sum_realisasi_op);
-      result.data7.lk = (ppLastMonthOfYear[4].sum_prognosa_lk + ppLastMonthOfYear[5].sum_prognosa_lk) -
+      result.data7.lk = (ppLastMonthOfYear[6].sum_prognosa_lk + ppLastMonthOfYear[7].sum_prognosa_lk + ppLastMonthOfYear[8].sum_prognosa_lk) -
       (totalProyekBaruPengusahaanNonJO.sum_realisasi_lk + totalProyekBaruPengusahaanJO.sum_realisasi_lk + totalProyekBaruPengusahaanIntern.sum_realisasi_lk);
 
       if (mainDataResult.claim) {
