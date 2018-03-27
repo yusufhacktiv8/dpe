@@ -14,6 +14,7 @@
     "dialect": "postgres"
   },
   "production": {
-    "use_env_variable": "DPEDB"
+    "use_env_variable": "DPEDB",
+    "dialect": "postgres"
   }
 }
