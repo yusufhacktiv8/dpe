@@ -77,3 +77,10 @@ exports.destroy = function destroy(req, res) {
     sendError(err, res);
   });
 };
+
+exports.view = function view(req, res) {
+  const { imageCode } = req.params;
+  const path = `${process.env.IMAGE_DIR}`;
+  const fileName = `${imageCode}.png`;
+  res.download(`${path}/${fileName}`, fileName);
+};

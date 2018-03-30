@@ -9,5 +9,6 @@ router.get('/:imageId', isAuthorizedAsAdmin, ImageController.findOne);
 router.post('/', isAuthorizedAsAdmin, ImageController.create);
 router.put('/:imageId', isAuthorizedAsAdmin, ImageController.update);
 router.delete('/:imageId', isAuthorizedAsAdmin, ImageController.destroy);
+router.get('/view/:imageCode', ImageController.view);
 
 module.exports = router;
