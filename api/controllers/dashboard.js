@@ -152,6 +152,12 @@ exports.getDashboardData = (req, res) => {
       }
     }
 
+    if (mainDataResult.sumProjectProgressInYear === undefined ||
+    mainDataResult.sumProjectProgressInYear === null) {
+      res.status(404).send('Not found');
+      return;
+    }
+
     result.data1.ok = mainDataResult.sumProjectProgressInYear.sum_rkap_ok;
     result.data1.op = mainDataResult.sumProjectProgressInYear.sum_rkap_op;
     result.data1.lsp = mainDataResult.lspInLastMonthOfYear ?
