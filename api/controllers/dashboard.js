@@ -160,6 +160,7 @@ exports.getDashboardData = (req, res) => {
 
     result.data1.ok = mainDataResult.sumProjectProgressInYear.sum_rkap_ok;
     result.data1.op = mainDataResult.sumProjectProgressInYear.sum_rkap_op;
+    result.data1.lk = mainDataResult.sumProjectProgressInYear.sum_rkap_lk;
     result.data1.lsp = mainDataResult.lspInLastMonthOfYear ?
     mainDataResult.lspInLastMonthOfYear.lsp_rkap : 0;
 
@@ -197,11 +198,13 @@ exports.getDashboardData = (req, res) => {
 
     result.data3.ok = mainDataResult.sumProjectProgressInYear.sum_prognosa_ok;
     result.data3.op = mainDataResult.sumProjectProgressInYear.sum_prognosa_op;
+    result.data3.lk = mainDataResult.sumProjectProgressInYear.sum_prognosa_lk;
     result.data3.lsp = mainDataResult.lspInLastMonthOfYear ?
     mainDataResult.lspInLastMonthOfYear.lsp_prognosa : 0;
 
     result.data4.ok = result.data3.ok - result.data2.ok;
     result.data4.op = result.data3.op - result.data2.op;
+    result.data4.lk = result.data3.lk - result.data2.lk;
     result.data4.lsp = result.data3.lsp - result.data2.lsp;
     // result.data4.ok = mainData.sum_prognosa_ok - mainData.sum_realisasi_ok;
     // result.data4.op = mainData.sum_prognosa_op - mainData.sum_realisasi_op;
